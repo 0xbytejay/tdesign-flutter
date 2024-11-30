@@ -21,6 +21,7 @@ class TDTableCol {
     this.ellipsis,
     this.ellipsisTitle,
     this.cellBuilder,
+    this.cellRender,
     this.align = TDTableColAlign.left,
     this.sortable = false,
   });
