@@ -9,6 +9,7 @@ enum TDTableColAlign { left, center, right }
 
 typedef OnCellTap = void Function(int rowIndex, dynamic row, TDTableCol col);
 typedef OnScroll = void Function(ScrollController controller);
+typedef CellRender = Widget Function(String value,int rowIndex);
 
 /// 表格列配置
 class TDTableCol {
@@ -44,6 +45,9 @@ class TDTableCol {
 
   /// 自定义列
   WidgetBuilder? cellBuilder;
+
+  //自定义单元格
+  CellRender? cellRender;
 
   /// 列内容横向对齐方式
   TDTableColAlign? align;
@@ -373,10 +377,18 @@ class TDTableState extends State<TDTable> {
         ],
       );
     }
+
+    // 自定义单元格内容
+    if(col.cellRender !=null) {
+      return col.cellRender!(title,index);
+    }
+
     // 自定义单元格内容
     if (col.cellBuilder != null) {
       return Builder(builder: col.cellBuilder!);
     }
+
+
     return titleWidget;
   }
 
